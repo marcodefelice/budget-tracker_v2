@@ -9,6 +9,7 @@ use App\BudgetTracker\Services\TransferService;
 use App\BudgetTracker\Models\Entry;
 use App\BudgetTracker\DataObjects\Wallet;
 use App\BudgetTracker\Models\Account;
+use App\Http\Services\UserService;
 use DateTime;
 
 class StatsService
@@ -183,6 +184,7 @@ class StatsService
     /**
      * get only planned entry
      * 
+     * 
      * @return \Illuminate\Database\Eloquent\Collection
      */
     private function getPlannedEntry(): \Illuminate\Database\Eloquent\Collection
@@ -198,6 +200,7 @@ class StatsService
         $entry = Entry::leftJoin('accounts', 'accounts.id', '=', 'entries.account_id')
             ->where('entries.planned', 1)
             ->where('entries.confirmed', 1)
+            ->where('entries.user_id', UserService::getCacheUserID())
             ->where('entries.date_time', '<=', $dateTime)
             ->where('entries.date_time', '>=', $dateTimeFirst)
             ->where('accounts.installement', 0)
