@@ -197,6 +197,7 @@ class StatsService
 
         $entry = Entry::leftJoin('accounts', 'accounts.id', '=', 'entries.account_id')
             ->where('entries.planned', 1)
+            ->where('entries.confirmed', 1)
             ->where('entries.date_time', '<=', $dateTime)
             ->where('entries.date_time', '>=', $dateTimeFirst)
             ->where('accounts.installement', 0)
