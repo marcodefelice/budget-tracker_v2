@@ -99,4 +99,9 @@ class CreditCartPlannedRecursiveEntry implements ShouldQueue
         Log::debug("Founded entry ".$note);
         return true;
     }
+
+    private function getInterests(\Illuminate\Database\Eloquent\Collection $account): float
+    {
+        $interests = $account->interests;
+    }
 }
